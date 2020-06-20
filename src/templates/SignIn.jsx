@@ -38,6 +38,8 @@ const SignUp = () => {
                 />
                 <div className="module-spacer--small" />
                 <p className="u-text-small"><a href='/signup'>アカウントをお持ちでない方はこちら</a></p>
+                <div className="module-spacer--small" />
+                <p className="u-text-small"><a href='/reset'>パスワードを忘れた方はこちら</a></p>
             </div>
         </div>
     );

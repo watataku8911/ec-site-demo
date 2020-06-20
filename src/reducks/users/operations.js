@@ -1,12 +1,55 @@
 import {db, auth, FirebaseTimestamp} from '../../firebase/index';
 import {
-    //signOutAction,
+    signOutAction,
     signInAction,
     //editProfileStateAction,
     //fetchProductsInCartAction, fetchOrdersHistoryAction,
 } from "./action";
 import {push} from 'connected-react-router';
 import {isValidRequiredInput, isValidEmailFormat} from '../../functions/common';
+
+export const resetPassword = (email) => {
+    return async (dispatch) => {
+        if (!isValidEmailFormat(email)) {
+            alert('メールアドレスの形式が不正です。')
+            return false
+        } else {
+            return auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert('入力されたアドレス宛にパスワードリセットのメールをお送りしましたのでご確認ください。')
+                    dispatch(push('/signin'))
+                }).catch(() => {
+                    alert('登録されていないメールアドレスです。もう一度ご確認ください。')
+                })
+        }
+    }
+};
+
+export const listenAuthState = () => {
+    return async (dispatch) => {
+        return auth.onAuthStateChanged(user => {
+            if (user) {
+                db.collection("users").doc(user.uid).get()
+                    .then(snapshot => {
+                        const data = snapshot.data()
+                        if (!data) {
+                            throw new Error('ユーザーデータが存在しません。')
+                        }
+
+                        // Update logged in user state
+                        dispatch(signInAction({
+                            isSignedIn: true,
+                            role: data.role,
+                            uid: user.uid,
+                            username: data.username,
+                        }))
+                    })
+            } else {
+                dispatch(push('/signin'))
+            }
+        })
+    }
+};
 
 export const signIn = (email, password) => {
     return async (dispatch) => {
@@ -23,6 +66,7 @@ export const signIn = (email, password) => {
         }
         return auth.signInWithEmailAndPassword(email, password)
             .then(result => {
+        
                 const userState = result.user
                 if (!userState) {
                     //dispatch(hideLoadingAction());
@@ -102,4 +146,30 @@ export const signUp = (username, email, password, confirmPassword) => {
                 // throw new Error(error)
             })
     }
-}
+};
+
+export const signOut = () => {
+    return async (dispatch, getState) => {
+        //dispatch(showLoadingAction("Sign out..."));
+        //const uid = getState().users.uid
+
+        // Delete products from the user's cart
+        // await usersRef.doc(uid).collection('cart').get()
+        //     .then(snapshots => {
+        //         snapshots.forEach(snapshot => {
+        //             usersRef.doc(uid).collection('cart').doc(snapshot.id).delete()
+        //         })
+        //     });
+
+        // Sign out with Firebase Authentication
+        auth.signOut().then(() => {
+            dispatch(signOutAction());
+            // dispatch(initProductsAction())
+            // dispatch(hideLoadingAction());
+            dispatch(push('/signin'));
+        }).catch(() => {
+            //dispatch(hideLoadingAction());
+            throw new Error('ログアウトに失敗しました。')
+        })
+    }
+};
