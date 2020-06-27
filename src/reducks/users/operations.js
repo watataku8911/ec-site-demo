@@ -8,6 +8,7 @@ import {
 import {push} from 'connected-react-router';
 import {isValidRequiredInput, isValidEmailFormat} from '../../functions/common';
 
+
 export const resetPassword = (email) => {
     return async (dispatch) => {
         if (!isValidEmailFormat(email)) {
@@ -90,6 +91,7 @@ export const signIn = (email, password) => {
 
                     //dispatch(hideLoadingAction());
                     dispatch(push('/'))
+                    
                 })
             }).catch(() => {
                 //dispatch(hideLoadingAction());

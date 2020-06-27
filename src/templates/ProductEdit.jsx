@@ -3,19 +3,20 @@ import {db} from '../firebase/index'
 import {PrimaryButton, SelectBox, TextInput} from "../conpoments/UIKit";
 import {useDispatch} from "react-redux";
 import {saveProduct} from "../reducks/products/operations";
-// import {ImageArea, SetSizesArea} from "../components/Products";
+import {ImageArea, SetSizesArea} from "../conpoments/Products";
 
 const ProductEdit = () => {
     const dispatch = useDispatch();
-    // let id = window.location.pathname.split('/product/edit')[1];
-    // if (id !== "") {
-    //     id = id.split('/')[1]
-    // }
-    const categories = [
-        {id: "all", name: "すべて"},
-        {id: "male", name: "メンズ"},
-        {id: "female", name: "レディース"}
-    ];
+    let id = window.location.pathname.split('/product/edit')[1];
+    if (id !== "") {
+        id = id.split('/')[1]
+    }
+    // var categories= [
+    //     {id: "all", name: "すべて"},
+    //     {id: "male", name: "メンズ"},
+    //     {id: "female", name: "レディース"}
+    // ];
+
     const genders = [
         {id: "all", name: "すべて"},
         {id: "male", name: "メンズ"},
@@ -24,12 +25,12 @@ const ProductEdit = () => {
 
     const [name, setName] = useState(""),
           [description, setDescription] = useState(""),
-        //  [images, setImages] = useState([]),
+          [images, setImages] = useState([]),
           [category, setCategory] = useState(""),
-        //   [categories, setCategories] = useState([]),
+          [categories, setCategories] = useState([]),
           [gender, setGender] = useState(""),
-          [price, setPrice] = useState("");
-        //  [sizes, setSizes] = useState([]);
+          [price, setPrice] = useState(""),
+          [sizes, setSizes] = useState([]);
 
     const inputName = useCallback((event) => {
         setName(event.target.value)
@@ -43,20 +44,20 @@ const ProductEdit = () => {
         setPrice(event.target.value)
     }, [setPrice])
 
-    // useEffect(() => {
-    //     if (id !== "") {
-    //         db.collection('products').doc(id).get().then(snapshot => {
-    //             const product = snapshot.data()
-    //             setName(product.name)
-    //             setDescription(product.description)
-    //             //setImages(product.images)
-    //             //setCategory(product.category)
-    //             setGender(product.gender)
-    //             setPrice(product.price)
-    //             //setSizes(product.sizes)
-    //         })
-    //     }
-    // },[id])
+    useEffect(() => {
+        if (id !== "") {
+            db.collection('products').doc(id).get().then(snapshot => {
+                const product = snapshot.data()
+                setName(product.name)
+                setDescription(product.description)
+                setImages(product.images)
+                setCategories(product.category)
+                setGender(product.gender)
+                setPrice(product.price)
+                setSizes(product.sizes)
+            })
+        }
+    },[id])
 
     // useEffect(() => {
     //     db.collection('categories').orderBy("order", "asc").get().then(snapshots => {
@@ -72,7 +73,7 @@ const ProductEdit = () => {
         <section>
             <h2 className="u-text__headline u-text-center">商品の登録・編集</h2>
             <div className="c-section-container">
-                {/* <ImageArea images={images} setImages={setImages} /> */}
+                <ImageArea images={images} setImages={setImages} />
                 <TextInput
                     fullWidth={true} label={"商品名"} multiline={false} required={true}
                     onChange={inputName} rows={1} value={name} type={"text"}
@@ -92,12 +93,11 @@ const ProductEdit = () => {
                     onChange={inputPrice} rows={1} value={price} type={"number"}
                 />
                 <div className="module-spacer--small"/>
-                {/* <SetSizesArea sizes={sizes} setSizes={setSizes} /> */}
+                <SetSizesArea sizes={sizes} setSizes={setSizes} />
                 <div className="module-spacer--small" />
                 <div className="center">
                     <PrimaryButton
-                        label={"商品情報を保存"}
-                        onClick={() => dispatch(saveProduct(categories, name, description, gender, price,))}
+                        label={"商品情報を保存"}onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, sizes, images))}onClick={() => dispatch(saveProduct(id, name, description, images, gender, price, sizes))}
                     />
                 </div>
             </div>

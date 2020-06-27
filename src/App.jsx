@@ -1,14 +1,16 @@
 import React from 'react';
-import Router from './Router';
 import './assets/style.css';
 import './assets/reset.css';
+import Footer from './conpoments/Footer';
+import Router from './Router';
 
 const App = () => {
     return (
       <>
-      <main>
+      <main className="c-main">
         <Router />
       </main>
+      <Footer />
       </>
     )
 }

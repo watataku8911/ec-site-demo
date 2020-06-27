@@ -9,6 +9,7 @@ import App from './App';
 
 const history = History.createBrowserHistory();
 export const store = createStore(history);
+
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
