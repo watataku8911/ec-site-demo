@@ -11,14 +11,13 @@ const ProductEdit = () => {
     if (id !== "") {
         id = id.split('/')[1]
     }
-    // var categories= [
-    //     {id: "all", name: "すべて"},
-    //     {id: "male", name: "メンズ"},
-    //     {id: "female", name: "レディース"}
-    // ];
+    const categories= [
+        {id: "all", name: "すべて"},
+        {id: "male", name: "メンズ"},
+        {id: "female", name: "レディース"}
+    ];
 
     const genders = [
-        {id: "all", name: "すべて"},
         {id: "male", name: "メンズ"},
         {id: "female", name: "レディース"}
     ];
@@ -27,7 +26,7 @@ const ProductEdit = () => {
           [description, setDescription] = useState(""),
           [images, setImages] = useState([]),
           [category, setCategory] = useState(""),
-          [categories, setCategories] = useState([]),
+        //   [categories, setCategories] = useState([]),
           [gender, setGender] = useState(""),
           [price, setPrice] = useState(""),
           [sizes, setSizes] = useState([]);
@@ -51,7 +50,7 @@ const ProductEdit = () => {
                 setName(product.name)
                 setDescription(product.description)
                 setImages(product.images)
-                setCategories(product.category)
+                //setCategories(product.category)
                 setGender(product.gender)
                 setPrice(product.price)
                 setSizes(product.sizes)
@@ -97,7 +96,7 @@ const ProductEdit = () => {
                 <div className="module-spacer--small" />
                 <div className="center">
                     <PrimaryButton
-                        label={"商品情報を保存"}onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, sizes, images))}onClick={() => dispatch(saveProduct(id, name, description, images, gender, price, sizes))}
+                        label={"商品情報を保存"}onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, sizes, images))}
                     />
                 </div>
             </div>

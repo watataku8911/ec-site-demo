@@ -1,6 +1,6 @@
 const initialState = {
     products: {
-        lists: []
+        list: []
     },
     users: {
         isSineedIn: false,

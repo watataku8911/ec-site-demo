@@ -1,26 +1,7 @@
-export const SIGN_IN = "SIGN_IN";
-export const signInAction = (userState) => {
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const fetchProductsAction = (products) => {
     return {
-        type: "SIGN_IN",
-        payload: {
-            isSineedIn: true,
-            role: userState.role,
-            uid: userState.uid,
-            username: userState.username
-           
-        }
+        type: "FETCH_PRODUCTS",
+        payload: products
     }
-};
-
-export const SIGN_OUT = "SIGN_OUT";
-export const signOutAction = () => {
-    return {
-        type: "SIGN_OUT",
-        payload: {
-            isSineedIn: false,
-            role: "",
-            uid: "",
-            username: ""
-        }
-    }
-};
+}
