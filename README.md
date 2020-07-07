@@ -1,12 +1,12 @@
 # ec-site-demo
 > React + Redux/Firebaseで作成したECサイトです。
 
+## 概要
+
 ## ログイン
 
 - メールアドレス:hogehoge@gmail.com
 - パスワード:Passw0rd
-
-## 概要
 
 ## アプリURL
 - [https://ec-site-43a04.web.app](https://ec-site-43a04.web.app)
