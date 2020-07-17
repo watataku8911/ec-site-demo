@@ -7,8 +7,8 @@ import {push} from 'connected-react-router';
 const SignUp = () => {
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("hogehoge@gmail.com")
+    const [password, setPassword] = useState("Passw0rd")
 
     const inputEmail = useCallback((e) => {
         setEmail(e.target.value)
@@ -39,9 +39,8 @@ const SignUp = () => {
                 />
                 <div className="module-spacer--small" />
                 <p className="u-text-small"　onClick={() => dispatch(push("/signup"))}>アカウントをお持ちでない方はこちら</p>
-                {/* <p className="u-text-small"><a href='/signup'>アカウントをお持ちでない方はこちら</a></p> */}
                 <div className="module-spacer--small" />
-                <p className="u-text-small"><a href='/signin/reset'>パスワードを忘れた方はこちら</a></p>
+                <p className="u-text-small"　onClick={() => dispatch(push("/signin/reset"))}>パスワードを忘れた方はこちら</p>
             </div>
         </div>
     );

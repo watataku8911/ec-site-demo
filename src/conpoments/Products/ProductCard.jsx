@@ -7,12 +7,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import NoImage from '../../assets/img/src/no_image.png'
 import {useDispatch, useSelector} from "react-redux";
-// import {getUserRole} from "../../reducks/users/selectors";
+import {getUserRole} from "../../reducks/users/selectors";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-// import {deleteProduct} from "../../reducks/products/operations";
+//import {deleteProduct} from "../../reducks/products/operations";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,9 +66,9 @@ const useStyles = makeStyles((theme) => ({
 const ProductCard = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch()
-    //const selector = useSelector(state => state);
-    //const userRole = getUserRole(selector)
-    //const isAdministrator = (userRole === "administrator");
+    const selector = useSelector(state => state);
+    const userRole = getUserRole(selector)
+    const isAdministrator = (userRole === "administrator");
 
     const images = (props.images.length > 0) ? props.images : [NoImage]
     const price = props.price.toLocaleString();
@@ -100,7 +100,7 @@ const ProductCard = (props) => {
                         ¥{price}
                     </Typography>
                 </div>
-                 {/* {isAdministrator && ( */}
+                 {isAdministrator && (
                     <>
                         <IconButton className={classes.icon} onClick={handleClick} color="inherit">
                             <MoreVertIcon />
@@ -130,7 +130,7 @@ const ProductCard = (props) => {
                             </MenuItem>
                         </Menu>
                     </>
-                {/* )} */}
+                )} 
             </CardContent>
         </Card>
     );

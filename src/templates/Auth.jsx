@@ -11,7 +11,7 @@ const Auth = ({children}) => {
 
     useEffect(() => {
         if (!isSignedIn) {
-            dispatch(listenAuthState());
+            dispatch(listenAuthState())
         }
     }, []);
 

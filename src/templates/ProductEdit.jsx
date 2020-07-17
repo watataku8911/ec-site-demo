@@ -18,6 +18,7 @@ const ProductEdit = () => {
     ];
 
     const genders = [
+        {id: "all", name: "すべて"},
         {id: "male", name: "メンズ"},
         {id: "female", name: "レディース"}
     ];

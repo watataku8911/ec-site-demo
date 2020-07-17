@@ -6,21 +6,17 @@ import {createStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) =>
     createStyles({
         "button": {
-            backgroundColor: 'rgb(29, 161, 242);',
-            color: '#FFF',
+            backgroundColor: theme.palette.grey["300"],
             fontSize: 16,
             height: 48,
             marginBottom: 16,
-            width: 256,
-            "&:hover": {
-                backgroundColor: '00F',
-            }
+            width: 256
         }
     })
 )
 
-const PrimaryButton = (props) => {
-    const classes = useStyles()
+const GreyButton = (props) => {
+    const classes = useStyles();
 
     return (
         <Button className={classes.button} variant="contained" onClick={() => props.onClick()}>
@@ -29,4 +25,4 @@ const PrimaryButton = (props) => {
     );
 };
 
-export default PrimaryButton;
+export default GreyButton;

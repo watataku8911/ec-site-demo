@@ -3,11 +3,44 @@ import {
     signOutAction,
     signInAction,
     //editProfileStateAction,
-    //fetchProductsInCartAction, fetchOrdersHistoryAction,
+    fetchProductsInCartAction,
+    fetchOrdersHistoryAction
 } from "./action";
 import {push} from 'connected-react-router';
 import {isValidRequiredInput, isValidEmailFormat} from '../../functions/common';
 
+export const addProductToCart = (addedProduct) => {
+    return async (dispatch, getState) => {
+        const uid = getState().users.uid
+        const cartRef = db.collection("users").doc(uid).collection('cart').doc()
+        addedProduct['cartId'] = cartRef.id
+        await cartRef.set(addedProduct)
+        dispatch(push('/'))
+    }
+};
+
+export const fetchProductsInCart = (products) => {
+    return async (dispatch) => {
+        dispatch(fetchProductsInCartAction(products))
+    }
+};
+
+export const fetchOrdersHistory = () => {
+    return async (dispatch, getState) => {
+        const uid = getState().users.uid;
+        const list = []
+
+        db.collection("users").doc(uid).collection('order')
+            .orderBy('updated_at', "desc").get()
+            .then(snapshots => {
+                snapshots.forEach(snapshot => {
+                    const data = snapshot.data();
+                    list.push(data)
+                });
+                dispatch(fetchOrdersHistoryAction(list))
+            })
+    }
+};
 
 export const resetPassword = (email) => {
     return async (dispatch) => {
@@ -127,17 +160,21 @@ export const signUp = (username, email, password, confirmPassword) => {
                     const uid = user.uid
                     const timestamp = FirebaseTimestamp.now();
 
-                    db.collection('users').doc(uid).set({
+                    const data = {
                         created_at: timestamp,
                         email: email,
                         role: "customer",
                         uid: uid,
                         updated_at: timestamp,
                         username: username
-                    })
+                    };
+
+                    db.collection('users').doc(uid).set(data)
                     .then( () => {
                         dispatch(push('/'))
                         //dispatch(hideLoadingAction())
+                    }).catch((error) => {
+                        alert(error);
                     })
                 }
             }).catch((error) => {
