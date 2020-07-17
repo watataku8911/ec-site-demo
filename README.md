@@ -8,3 +8,6 @@ connect-react-routerが上手くいかない
 ```
 $ npm install history @4.10.1
 ```
+## 2020/07/17現在
+- 検索(未着手)
+- 決済(未着手)
