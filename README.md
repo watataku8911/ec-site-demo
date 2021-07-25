@@ -1,5 +1,4 @@
 # ec-site-demo
-<<<<<<< HEAD
 > React + Redux/Firebaseで作成したECサイトです。
 
 
@@ -28,7 +27,6 @@
 
 ## 苦労した点
 - historyによるバグ
-=======
 
 connect-react-routerが上手くいかない
 
@@ -38,4 +36,3 @@ connect-react-routerが上手くいかない
 ```
 $ npm install history @4.10.1
 ```
->>>>>>> unfinished
