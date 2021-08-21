@@ -16,8 +16,9 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HistoryIcon from '@material-ui/icons/History';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {db} from "../../firebase";
 import {getUserRole} from "../../reducks/users/selectors";
+//import {db} from "../../firebase";
+
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -53,11 +54,22 @@ const ClosableDrawer = (props) => {
         props.onClose(event);
     };
 
-    const [searchKeyword, setSearchKeyword] = useState(""),
-          [filters, setFilters] = useState([
-                {func: selectMenu, label: "すべて",    id: "all",    value: ""              },
-                {func: selectMenu, label: "メンズ",    id: "male",   value: "?gender=male"  },
-                {func: selectMenu, label: "レディース", id: "female", value: "?gender=female"},
+    //キーワード検索メソッド
+    const search = (event) => {
+        if(searchKeyword.length != 0) {
+            //Algoliaの処理
+        } else {
+            alert("キーワードを入力してください。");
+        }
+        setSearchKeyword("");
+        props.onClose(event);
+    }
+
+    const [searchKeyword, setSearchKeyword] = useState("");
+    const [filters, setFilters] = useState([
+                {func: selectMenu, label: "すべて",    id: "all",    value: "/"              },
+                {func: selectMenu, label: "メンズ",    id: "male",   value: "/?gender=male"  },
+                {func: selectMenu, label: "レディース", id: "female", value: "/?gender=female"},
     ]);
 
     const menus = [
@@ -89,8 +101,6 @@ const ClosableDrawer = (props) => {
                 variant="temporary"
                 anchor={"right"}
                 open={props.open}
-                onClose={(e) => props.onClose(e)}
-                onKeyDown={(e) => props.onClose(e)}
                 classes={{
                     paper: classes.drawerPaper,
                 }}
@@ -105,7 +115,7 @@ const ClosableDrawer = (props) => {
                             onChange={inputSearchKeyword} required={false} rows={1} value={searchKeyword} type={"text"}
                         />
                         <IconButton>
-                            <SearchIcon />
+                            <SearchIcon onClick={(e) => search(e)}/>
                         </IconButton>
                     </div>
                     <Divider />

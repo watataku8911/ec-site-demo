@@ -5,7 +5,7 @@ import {getProducts} from "../reducks/products/selectors";
 import {fetchProducts} from "../reducks/products/operations";
 
 const ProductList = () => {
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch();
     const selector = useSelector(state => state);
     const products = getProducts(selector);
 
@@ -17,9 +17,6 @@ const ProductList = () => {
         dispatch(fetchProducts(gender, category))
     },[query])
 
-    // useEffect(() => {
-    //     dispatch(fetchProducts())
-    // }, [])
 
     return (
         <section className="c-section-wrapin">
