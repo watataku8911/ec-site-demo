@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import IconButton from "@material-ui/core/IconButton";
 import {Badge} from "@material-ui/core";
 import {fetchProductsInCart} from "../../reducks/users/operations";
@@ -6,14 +6,26 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProductsInCart, getUserId} from "../../reducks/users/selectors";
 import {push} from "connected-react-router"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import {db} from '../../firebase/index'
+
 
 const HeaderMenu = () => { 
     const dispatch = useDispatch();
     const selector = useSelector((state) => state);
     const userId = getUserId(selector);
     let productsInCart = getProductsInCart(selector);
+
+    const [modal, setModal] = useState(false);
+
+     // フォーム用モーダルを開くCallback関数
+     const handleOpen = useCallback(() => {
+        setModal(true)
+    },[setModal]);
+
+    // フォーム用モーダルを閉じるCallback関数
+    const handleClose = useCallback(() => {
+        setModal(false)
+    },[setModal]);
 
     // Listen products in user's cart
     useEffect(() => {
@@ -48,13 +60,14 @@ const HeaderMenu = () => {
     return (
         <>
             <IconButton onClick={() => dispatch(push('/cart'))}>
+                
                 <Badge badgeContent={productsInCart.length} color="secondary">
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>
-            <IconButton>
+            {/* <IconButton>
                 <FavoriteBorderIcon />
-            </IconButton>
+            </IconButton> */}
         </>
     );
 };

@@ -41,11 +41,11 @@ const SizeTable = (props) => {
                                         <div>売切</div>
                                     )}
                                 </TableCell>
-                                <TableCell className={classes.iconCell}>
+                                {/* <TableCell className={classes.iconCell}>
                                     <IconButton className={classes.iconCell}>
                                         <FavoriteBorderIcon />
                                     </IconButton>
-                                </TableCell>
+                                </TableCell> */}
                             </TableRow>
                         ))
                     )}

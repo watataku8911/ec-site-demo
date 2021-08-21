@@ -1,4 +1,4 @@
-import React, {useCallback, useState}  from 'react';
+import React, {useCallback, useState, useEffect}  from 'react';
 import {createStyles, makeStyles}      from '@material-ui/core/styles';
 import AppBar                          from '@material-ui/core/AppBar';
 import Toolbar                         from '@material-ui/core/Toolbar';
@@ -38,12 +38,9 @@ const Header = () => {
 
     const [sideBarOpen, setSideBarOpen] = useState(false);
 
-    const handleDrawerToggle = useCallback((event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
+    const handleDrawerToggle = useCallback(() => {
         setSideBarOpen(!sideBarOpen);
-    }, [setSideBarOpen, sideBarOpen])
+    }, [sideBarOpen])
 
     return (
         <div className={classes.root}>
