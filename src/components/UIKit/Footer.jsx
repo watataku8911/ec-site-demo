@@ -20,9 +20,7 @@ const Footer = () => {
         >
           <li>お問い合わせ</li>
         </a>
-        <a className="u-text__link-none">
-          <li>Copyright &copy; 2020 Watataku</li>
-        </a>
+        <li>Copyright &copy; 2020 Watataku</li>
       </ul>
     </footer>
   );

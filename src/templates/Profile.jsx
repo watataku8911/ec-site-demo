@@ -2,16 +2,19 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsername } from "../../src/reducks/users/selectors";
 import { push } from "connected-react-router";
-import { SecondaryButton, TextDetail } from "../conpoments/UIKit/index";
+import { SecondaryButton, TextDetail } from "../components/UIKit/index";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const userName = getUsername(selector);
 
-  const transition = useCallback((path) => {
-    dispatch(push(path));
-  }, []);
+  const transition = useCallback(
+    (path) => {
+      dispatch(push(path));
+    },
+    [dispatch]
+  );
 
   return (
     <section className="c-section-container">

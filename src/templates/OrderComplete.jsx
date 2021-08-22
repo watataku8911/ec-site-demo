@@ -1,22 +1,22 @@
-import React, {useCallback} from 'react';
-import {PrimaryButton} from "../conpoments/UIKit/index";
-import {useDispatch} from "react-redux";
-import {push} from "connected-react-router"
+import React, { useCallback } from "react";
+import { PrimaryButton } from "../components/UIKit/index";
+import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 
 const OrderComplete = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-    const goBackToTop = useCallback(() => {
-        dispatch(push('/'))
-    }, [])
+  const goBackToTop = useCallback(() => {
+    dispatch(push("/"));
+  }, [dispatch]);
 
-    return (
-        <div className="c-section-container">
-            <p>ご注文ありがとうございました！</p>
-            <div className="module-spacer--medium" />
-            <PrimaryButton label="ショッピングを続ける" onClick={goBackToTop} />
-        </div>
-    );
+  return (
+    <div className="c-section-container">
+      <p>ご注文ありがとうございました！</p>
+      <div className="module-spacer--medium" />
+      <PrimaryButton label="ショッピングを続ける" onClick={goBackToTop} />
+    </div>
+  );
 };
 
 export default OrderComplete;
