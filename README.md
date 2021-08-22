@@ -37,7 +37,6 @@ npm install --save @material-ui/core @material-ui/icons @material-ui/styles conn
 - パスワード:Passw0rd
 
 ## アプリURL
-- [https://ec-site-43a04.web.app](https://ec-site-43a04.web.app)
 
 ## 機能一覧
 - ユーザ登録
